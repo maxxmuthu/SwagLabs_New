@@ -89,7 +89,8 @@ public class TestNGListener extends BaseClass implements ITestListener{
             e.printStackTrace();
         }
         
-        String summary = "Test failed: " + result.getMethod().getMethodName();
+       // Create JIRA issue
+        String summary = "Test failed due to: " + result.getThrowable().getMessage();
         JiraIssueCreator.createJiraIssue(summary);
     }
 

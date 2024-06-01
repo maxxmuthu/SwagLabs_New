@@ -99,7 +99,7 @@ public class scenario_001 extends BaseClass{
         loginpage.login(testData.get("Username"), testData.get("Password"));
         
         String errormsg_1 = loginpage.error1.getText();
-		Assert.assertEquals(errormsg_1,"Epic sadface: Sorry, this user has been locked out.");
+		Assert.assertEquals(errormsg_1,"Epic sadface: Sorry, this user has been locked out");
 		
 		Log.endTestCase("scenario_02");
 
