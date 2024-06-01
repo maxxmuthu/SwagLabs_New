@@ -17,8 +17,8 @@ public class JiraIssueCreator {
 	@SuppressWarnings("deprecation")
 	public static void createJiraIssue(String summary) {
         String jiraUrl = "https://uncia.atlassian.net/rest/api/3/issue";
-        String username = System.getenv("JIRA_USERNAME");
-        String apiToken = System.getenv("JIRA_API_TOKEN");
+        String username = System.getenv("JIRA_USERNAME");   // Credentials are maintained in Jenkins
+        String apiToken = System.getenv("JIRA_API_TOKEN");   // Credentials are maintained in Jenkins
        
         Map<String, Object> fields = new HashMap<>();
         fields.put("summary", summary);

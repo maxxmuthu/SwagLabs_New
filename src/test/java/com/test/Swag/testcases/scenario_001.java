@@ -50,9 +50,10 @@ public class scenario_001 extends BaseClass{
 	@Test(priority=1)
     public void startpageAndlogin1() throws Throwable  {
 		
-	//	ExtentTest test = TestNGListener.extentTest.get();
-	//	test = TestNGListener.extentTest.get();
+	  //  ExtentTest test = TestNGListener.extentTest.get();
+      //  test = TestNGListener.extentTest.get();
 		
+		//TestRail
 		testCaseId = 9560;
 		
 		// Logging the messsage
@@ -82,6 +83,7 @@ public class scenario_001 extends BaseClass{
 	@Test(priority=2)
     public void startpageAndlogin2() throws Throwable {	
 		
+		//TestRail
 		testCaseId = 9561;
 		
 		Log.startTestCase("scenario_02");
@@ -97,7 +99,7 @@ public class scenario_001 extends BaseClass{
         loginpage.login(testData.get("Username"), testData.get("Password"));
         
         String errormsg_1 = loginpage.error1.getText();
-		Assert.assertEquals(errormsg_1,"Epic sadface: Sorry, this user has been locked out");
+		Assert.assertEquals(errormsg_1,"Epic sadface: Sorry, this user has been locked out.");
 		
 		Log.endTestCase("scenario_02");
 
