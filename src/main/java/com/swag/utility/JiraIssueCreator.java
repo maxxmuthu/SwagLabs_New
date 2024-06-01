@@ -17,7 +17,7 @@ public class JiraIssueCreator {
 	@SuppressWarnings("deprecation")
 	public static void createJiraIssue(String summary) {
         String jiraUrl = "https://uncia.atlassian.net/rest/api/3/issue";
-        String username = "raguramj@uncia.ai";
+        String username = System.getenv("JIRA_USERNAME");
         String apiToken = System.getenv("JIRA_API_TOKEN");
        
         Map<String, Object> fields = new HashMap<>();

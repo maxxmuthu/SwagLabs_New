@@ -9,8 +9,8 @@ public class TestRailManager {
 	
 public static String TEST_RUN_ID = "353";
 	
-	public static String TEST_RAIL_USERNAME = "muthukumar@themeprotech.com";
-	public static String TEST_RAIL_PASSWORD = "tBQABhVU5rL.By2xCwWu-WOQ.dmTo.QKDZIb/v9HF";
+	public static String TEST_RAIL_USERNAME = System.getenv("TEST_RAIL_USERNAME");
+	public static String TEST_RAIL_PASSWORD = System.getenv("TEST_RAIL_PASSWORD");
 	
 	public static String TEST_RAIL_ENGINE_URL = "https://uncia.testrail.io/";
 	
