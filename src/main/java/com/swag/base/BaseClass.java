@@ -5,14 +5,20 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Properties;
 
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
@@ -35,7 +41,7 @@ public class BaseClass {
 	@BeforeSuite()
 	public void loadConfig() {
 
-/*		try {
+		try {
 			prop = new Properties(); // here we setup and load the config.properties
 			FileInputStream ip = new FileInputStream(
 					System.getProperty("user.dir") + "\\Configuration\\config.properties");
@@ -46,53 +52,56 @@ public class BaseClass {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	} */
-		try {	
-		prop = new Properties();
-        String configFilePath = System.getProperty("user.dir") + "\\Configuration\\config.properties";
-        File configFile = new File(configFilePath);
-        if (configFile.exists()) {
-            FileInputStream ip = new FileInputStream(configFilePath);
-            prop.load(ip);
-            System.out.println("Configuration loaded successfully from: " + configFilePath);
-        } else {
-            System.out.println("Configuration file not found at: " + configFilePath);
-        }
-    } catch (FileNotFoundException e) {
-        e.printStackTrace();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-}  
+	} 
+	
+	public void setDriver(String browser) throws MalformedURLException {  // for non-parallel test - remove 'String browser' parameter
 
-	public void launchApp() {
-		
-		 Assert.assertNotNull(prop, "Properties object is null. Ensure loadConfig() is called.");
-
-		String browserName = prop.getProperty("browser");
-
-		if (browserName.equalsIgnoreCase("Chrome")) {
-			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
-
-		} else if (browserName.equalsIgnoreCase("FireFox")) {
-			WebDriverManager.firefoxdriver().setup();
-			driver = new FirefoxDriver();
-
-		} else if (browserName.equalsIgnoreCase("Edge")) {
-			WebDriverManager.iedriver().setup();
-			driver = new EdgeDriver();
-
+		if (Boolean.getBoolean("selenium.grid.enabled")) {
+			this.driver = getRemoteDriver(browser);                       // for non-parallel test - remove 'browser' parameter
+		} else {
+			this.driver = getLocalDriver();
 		}
-
+		
 		// URL details
-		driver.get(prop.getProperty("url"));
-		 //Assert.assertNotNull(prop.getProperty("url"), "URL is not set in properties file.");
-		 
-		driver.manage().window().maximize();
+			driver.get(prop.getProperty("url"));			 
+		    driver.manage().window().maximize();
 
 	}
-	
+
+	public WebDriver getRemoteDriver(String browser) throws MalformedURLException {    // for non-parallel test - remove 'String browser' parameter
+		Capabilities capabilities = null;
+		//String browser = System.getProperty("browser");              // for non-parallel test - it is required		
+		//String browser = prop.getProperty("browser");
+
+		if (browser != null && browser.equalsIgnoreCase("chrome")) {
+			capabilities = new ChromeOptions();
+
+		} else if (browser != null && browser.equalsIgnoreCase("edge")) {
+			capabilities = new EdgeOptions();
+
+		} else {
+			throw new IllegalArgumentException("Unsupported browser: " + browser);
+		}
+
+		return new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
+	}
+
+	public WebDriver getLocalDriver() {
+		String browser = prop.getProperty("browser");
+
+		if (browser != null && browser.equalsIgnoreCase("chrome")) {
+			WebDriverManager.chromedriver().setup();
+			return new ChromeDriver();
+
+		} else if (browser != null && browser.equalsIgnoreCase("edge")) {
+			WebDriverManager.edgedriver().setup();
+			return new EdgeDriver();
+
+		} else {
+			throw new IllegalArgumentException("Unsupported browser: " + browser);
+		}
+	}
+
 	
 
 }

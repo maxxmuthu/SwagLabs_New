@@ -26,7 +26,7 @@ import com.swag.utility.ExcelReader;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 
-public class scenario_001 extends BaseClass{
+public class scenario_002 extends BaseClass{
 	
 	// Create objects for all the pages which required in scenario
 	LoginPage loginpage;
@@ -53,38 +53,31 @@ public class scenario_001 extends BaseClass{
         }
 	}
 	
+
 	@Test(priority=1)
-    public void startpageAndlogin1() throws Throwable  {
-		
-	  //  ExtentTest test = TestNGListener.extentTest.get();
-      //  test = TestNGListener.extentTest.get();
+    public void startpageAndlogin2() throws Throwable {	
 		
 		//TestRail
-		testCaseId = 9560;
+		testCaseId = 9561;
 		
-		// Logging the messsage
-		Log.startTestCase("scenario_01");
-		Log.info("This is scenario_01");
+		Log.startTestCase("scenario_02");
+		Log.info("This is scenario_02");
 		
 		
 		 // Fetch data from ExcelReader
-        Map<String, String> testData = ExcelReader.getData("Scenario_01");
-		
-		loginpage = new LoginPage();
-		
-		// Use data in your test
-		homepage = loginpage.login(testData.get("Username"), testData.get("Password"));
-		
-		//test.info("Starting testMethod1");
-		
-		String title = homepage.title();
-		Assert.assertEquals(title,"Swag Labs");
-		
-	    Log.endTestCase("scenario_01");
+        Map<String, String> testData = ExcelReader.getData("Scenario_02");
 
+        loginpage = new LoginPage();
+        
+        // Use data in your test
+        loginpage.login(testData.get("Username"), testData.get("Password"));
+        
+        String errormsg_1 = loginpage.error1.getText();
+		Assert.assertEquals(errormsg_1,"Epic sadface: Sorry, this user has been locked out");
 		
+		Log.endTestCase("scenario_02");
+
 	}
-	
 	
 	
 

@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Failed suite [Test Suite]" guice-stage="DEVELOPMENT">
+<suite parallel="tests" name="Failed suite [Test Suite]" guice-stage="DEVELOPMENT">
   <listeners>
     <listener class-name="com.swag.utility.TestNGListener"/>
   </listeners>
-  <test thread-count="5" name="Test Scenarios(failed)">
+  <test thread-count="5" parallel="tests" name="EdgeTest(failed)">
+    <parameter name="browser" value="edge"/>
     <classes>
-      <class name="com.test.Swag.testcases.scenario_001">
+      <class name="com.test.Swag.testcases.scenario_002">
         <methods>
-          <include name="tearDown"/>
           <include name="setup"/>
           <include name="loadConfig"/>
           <include name="startpageAndlogin2"/>
+          <include name="tearDown"/>
         </methods>
-      </class> <!-- com.test.Swag.testcases.scenario_001 -->
+      </class> <!-- com.test.Swag.testcases.scenario_002 -->
     </classes>
-  </test> <!-- Test Scenarios(failed) -->
+  </test> <!-- EdgeTest(failed) -->
 </suite> <!-- Failed suite [Test Suite] -->

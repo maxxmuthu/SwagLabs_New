@@ -154,9 +154,12 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>3.2.5</version>
              <configuration>
-			   <suiteXmlFiles>
+             <systemPropertyVariables>              
+                  <selenium.grid.enabled>true</selenium.grid.enabled>
+              </systemPropertyVariables>      
+			  <suiteXmlFiles>
 				  <suiteXmlFile>testng.xml</suiteXmlFile>
-				</suiteXmlFiles>
+			  </suiteXmlFiles>			  
 			 </configuration>
         </plugin>
         <plugin>
