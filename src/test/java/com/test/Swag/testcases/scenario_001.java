@@ -32,8 +32,8 @@ public class scenario_001 extends BaseClass{
 	
 	@BeforeMethod
 	public void setup() {
-		String testRunId = prop.getProperty("testrail.run_id");
-		TestRailManager.TEST_RUN_ID = testRunId;
+		//String testRunId = prop.getProperty("testrail.run_id");
+		//TestRailManager.TEST_RUN_ID = testRunId;
 		
 		launchApp();
 	}
