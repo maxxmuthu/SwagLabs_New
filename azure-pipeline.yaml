@@ -1,0 +1,49 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: JIRATestRail
+  - name: java.version
+    value: '16'
+
+stages:
+- stage: BuildAndTest
+  jobs:
+  - job: BuildAndTest
+    steps:
+    - script: |
+        echo "Setting up JIRA credentials"
+        echo "##vso[task.setvariable variable=JIRA_USERNAME]$(JIRA_USERNAME)"
+        echo "##vso[task.setvariable variable=JIRA_API_TOKEN]$(JIRA_API_TOKEN)"
+
+        echo "Setting up TestRail credentials"
+        echo "##vso[task.setvariable variable=TEST_RAIL_USERNAME]$(TEST_RAIL_USERNAME)"
+        echo "##vso[task.setvariable variable=TEST_RAIL_PASSWORD]$(TEST_RAIL_PASSWORD)"
+
+        echo "Java version:"
+        java -version
+
+        mvn clean compile
+        mvn test -Dsurefire.suiteXmlFiles=testng.xml
+
+      displayName: 'Build and Test'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: 'test-output'
+        artifactName: 'Extent Reports'
+        publishLocation: 'Container'
+
+- stage: Cleanup
+  jobs:
+  - job: Cleanup
+    steps:
+    - script: |
+        echo "Cleaning up workspace"
+          # You can include additional cleanup steps here if needed
+          # rm -rf *
+      displayName: 'Clean up workspace'
+      
