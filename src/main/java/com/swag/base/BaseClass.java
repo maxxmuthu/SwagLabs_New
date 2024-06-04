@@ -1,5 +1,6 @@
 package com.swag.base;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
@@ -33,7 +35,7 @@ public class BaseClass {
 	@BeforeSuite()
 	public void loadConfig() {
 
-		try {
+/*		try {
 			prop = new Properties(); // here we setup and load the config.properties
 			FileInputStream ip = new FileInputStream(
 					System.getProperty("user.dir") + "\\Configuration\\config.properties");
@@ -44,10 +46,28 @@ public class BaseClass {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-    
+	} */
+		try {	
+		prop = new Properties();
+        String configFilePath = System.getProperty("user.dir") + "\\Configuration\\config.properties";
+        File configFile = new File(configFilePath);
+        if (configFile.exists()) {
+            FileInputStream ip = new FileInputStream(configFilePath);
+            prop.load(ip);
+            System.out.println("Configuration loaded successfully from: " + configFilePath);
+        } else {
+            System.out.println("Configuration file not found at: " + configFilePath);
+        }
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}  
 
 	public void launchApp() {
+		
+		 Assert.assertNotNull(prop, "Properties object is null. Ensure loadConfig() is called.");
 
 		String browserName = prop.getProperty("browser");
 
@@ -67,7 +87,8 @@ public class BaseClass {
 
 		// URL details
 		driver.get(prop.getProperty("url"));
-
+		 //Assert.assertNotNull(prop.getProperty("url"), "URL is not set in properties file.");
+		 
 		driver.manage().window().maximize();
 
 	}

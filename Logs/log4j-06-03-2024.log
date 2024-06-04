@@ -1,0 +1,5 @@
+2024-06-03 22:52:01 INFO  Log:17 - ================scenario_01 TEST START======================
+2024-06-03 22:52:01 INFO  Log:25 - This is scenario_01
+2024-06-03 22:52:07 INFO  Log:21 - ===============scenario_01 TEST END=========================
+2024-06-03 22:52:10 INFO  Log:17 - ================scenario_02 TEST START======================
+2024-06-03 22:52:10 INFO  Log:25 - This is scenario_02

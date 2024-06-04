@@ -26,9 +26,11 @@ stages:
         echo "Java version:"
         java -version
 
+        # Ensure the config file is in the correct place
+        ls -la $(System.DefaultWorkingDirectory)/Configuration/
+
         mvn clean compile
         mvn test -Dsurefire.suiteXmlFiles=testng.xml
-
       displayName: 'Build and Test'
 
     - task: PublishBuildArtifacts@1
@@ -43,7 +45,5 @@ stages:
     steps:
     - script: |
         echo "Cleaning up workspace"
-          # You can include additional cleanup steps here if needed
-          # rm -rf *
+        # rm -rf *
       displayName: 'Clean up workspace'
-      
