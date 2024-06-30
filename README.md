@@ -57,7 +57,7 @@ The repository contains the following key directories and files:
    Execute the following command to run the tests:
    mvn test
 
-Continuous Integration
+## Continuous Integration
 Azure Pipelines: The azure-pipeline.yaml file contains the necessary configuration for setting up a CI/CD pipeline in Azure DevOps.
 
 Jenkins: Use the jenkins-pipeline.txt file to configure your Jenkins pipeline for continuous integration and deployment.
@@ -76,27 +76,33 @@ Integration with TestRail and JIRA
 TestRail: The project includes classes (APIClient, APIException, TestRailManager) for integrating with TestRail. These classes help in updating the test case results in TestRail automatically after the test execution.
 JIRA: The JiraIssueCreator class automates the creation of JIRA issues for any test case failures, enabling seamless defect tracking.
 
-Detailed Explanation of Key Components
+## Detailed Explanation of Key Components
 com.swag.base.BaseClass
+
 The BaseClass contains the setDriver function which determines whether to use getRemoteDriver (for running tests in a virtual machine) or getLocalDriver (for running tests on a local machine). This function is crucial for setting up the WebDriver instance based on the environment.
 
 com.swag.utility.Utils
+
 The Utils class contains various custom utility functions such as click, getText, sendKeys, etc., which are commonly used actions in the test scripts. These utility methods help in reducing code duplication and improving code readability.
 
 com.swag.utility.ExtentManager
+
 The ExtentManager class is responsible for configuring and managing the ExtentReports. It provides methods to initialize the report, create test nodes, and log the test execution details.
 
 com.swag.utility.TestRail Integration
+
 The APIClient, APIException, and TestRailManager classes are designed for integrating with TestRail. They provide methods to connect to TestRail, update test results, and manage test runs. This integration helps in keeping track of the test case execution status in TestRail.
 
 com.swag.utility.JiraIssueCreator
+
 The JiraIssueCreator class automates the process of raising defects in JIRA for any test case failures. It connects to JIRA using the provided credentials, creates a new issue with the relevant details, and logs the issue ID. This ensures that all failed test cases are properly tracked and assigned for resolution.
 
 src/test/java
+
 This directory contains all the test scenarios, organized in a way that makes it easy to add, modify, and manage tests. Each test class is designed to validate specific functionality of the Swag Labs application, ensuring comprehensive test coverage.
 
-Contributing
+## Contributing
 Contributions are welcome! Feel free to fork this repository, make your changes, and submit pull requests.
 
-License
+## License
 This project is licensed under the MIT License.
